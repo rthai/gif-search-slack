@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/Nav.css';
+import Search from './Search';
 
 const Nav = () => (
   <nav>
@@ -10,7 +11,11 @@ const Nav = () => (
       <li><a>Home</a></li>
       <li><a>Favorites</a></li>
       <li><a>Upload</a></li>
-      <li>Search</li>
+      <li>
+        <div className="search-container">
+          <Search/>
+        </div>
+      </li>
     </ul>
   </nav>
 );
