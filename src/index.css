@@ -11,6 +11,10 @@ body {
   color: #4c4c4c;
 }
 
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 ul, li {
   margin: 0;
   padding: 0;
