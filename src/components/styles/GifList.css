@@ -1,0 +1,29 @@
+main {
+  width: 90%;
+  max-width: 1025px;
+  margin: auto;
+  /* padding: 20px; */
+}
+
+/* main::after {
+  content: " ";
+  display: table;
+  clear: both;
+} */
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding:1em;
+  /* border: 1px solid black; */
+}
+
+.main-header h3 {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  /* border: 1px solid red; */
+}
+
+
