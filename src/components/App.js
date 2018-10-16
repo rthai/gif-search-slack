@@ -3,7 +3,9 @@ import axios from 'axios';
 
 import './styles/App.css';
 import Nav from './Nav';
+import DropNav from './DropNav';
 import GifList from './GifList';
+
 
 // TODO: make an error page
 
@@ -29,6 +31,7 @@ class App extends Component {
     return (
       <div className="App">
         <Nav />
+        <DropNav />
         <GifList data={this.state.gifs}/>
       </div>
     );
