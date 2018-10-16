@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import './styles/App.css';
 import Nav from './Nav';
+import GifList from './GifList';
 
 // TODO: make an error page
 
@@ -28,6 +29,7 @@ class App extends Component {
     return (
       <div className="App">
         <Nav />
+        <GifList data={this.state.gifs}/>
       </div>
     );
   }
