@@ -6,18 +6,20 @@ nav {
   position: fixed;
   z-index: 10;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
 }
 
 .nav-links {
   width: 90vw;
-  margin: auto;
+  margin: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 .nav-links li {
-  flex:1;
+  flex:1 2;
   text-align: center;
 }
 
@@ -25,9 +27,40 @@ nav {
   flex: 2;
 }
 
-.logo {
+li.logo {
+  max-width: 200px;
+  transition: all 0.5s;
+}
+
+li.logo h1 {
+  min-width: 158px;
+  margin: 15px 0 15px 0;
+  background: #fff;
   font-weight: 600;
   font-size: 30px;
   text-transform: uppercase;
 }
 
+li.link {
+  max-width: 100px;
+}
+
+@media (max-width: 470px) { 
+  /* TODO: collapse links into hamburger */
+}
+
+@media (max-width: 640px) { 
+  li.logo {
+    max-width: 0;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 895px) { 
+  li.link {
+    max-width: 90px;
+  }
+  li.logo h1 {
+    font-size: 28px;
+  }
+}
