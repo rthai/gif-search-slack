@@ -1,0 +1,19 @@
+.drop-menu {
+  position: fixed;
+  top: -63px;
+  z-index: 5;
+  width: 100vw;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background: #fff;
+  text-align: left;
+  transition: top 0.5s;
+}
+
+/* TODO: do something with hover */
+.drop-menu li.link:hover {
+  background-color: mistyrose;
+}
