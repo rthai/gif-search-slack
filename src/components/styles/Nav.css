@@ -15,6 +15,7 @@ nav {
   margin: 0;
   display: flex;
   justify-content: space-around;
+  /* align-content: center; */
   align-items: center;
 }
 
@@ -52,8 +53,23 @@ nav {
   text-transform: uppercase;
 }
 
+.nav-links li.link a:hover, .nav-links li.link a:active {
+  /* box-sizing: border-box; */
+  /* border-bottom: 2px solid dodgerblue; */
+  /* background: mistyrose; */
+  color: dodgerblue;
+}
+
+.nav-links li.logo a:visited {
+  color: #000;
+}
+
 li.link {
   max-width: 100px;
+}
+
+li.link.fav {
+  min-width: 100px;
 }
 
 @media (max-width: 470px) { 
