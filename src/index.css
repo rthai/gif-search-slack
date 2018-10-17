@@ -25,6 +25,10 @@ a {
   text-decoration: none;
 }
 
+a:visited {
+  color:#4c4c4c;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
