@@ -4,7 +4,7 @@ nav {
   width: 100%;
   transition:all 0.5s;
   position: fixed;
-  z-index: 10;
+  z-index: 1000;
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -27,12 +27,23 @@ nav {
   flex: 2;
 }
 
-li.logo {
+.nav-links li.hamburger {
+  max-width: 0;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+.nav-links button.menu {
+  background: #fff;
+  border: 0;
+}
+
+.nav-links li.logo {
   max-width: 200px;
   transition: all 0.5s;
 }
 
-li.logo h1 {
+.nav-links li.logo h1 {
   min-width: 158px;
   margin: 15px 0 15px 0;
   background: #fff;
@@ -46,11 +57,18 @@ li.link {
 }
 
 @media (max-width: 470px) { 
-  /* TODO: collapse links into hamburger */
+  .nav-links li.hamburger {
+    min-width: 40px;
+    max-width: 40px;
+  }
+  .nav-links li.link {
+    max-width: 0;
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 640px) { 
-  li.logo {
+  .nav-links li.logo {
     max-width: 0;
     overflow: hidden;
   }
@@ -60,7 +78,7 @@ li.link {
   li.link {
     max-width: 90px;
   }
-  li.logo h1 {
+  .nav-links li.logo h1 {
     font-size: 28px;
   }
 }
