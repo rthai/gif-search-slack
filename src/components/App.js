@@ -14,7 +14,7 @@ class App extends Component {
     super()
     this.state = {
       gifs: [],
-      favorites: {},
+      favorites: JSON.parse(localStorage.getItem('favorites')) || {count: 0},
     }
 
     this.onSort = this.onSort.bind(this);
@@ -60,10 +60,13 @@ class App extends Component {
     }
 
     if (img.isSelected) {
-      copyFavs[index] = img
+      copyFavs[index] = img;
+      copyFavs.count++;
     } else {
-      delete copyFavs[index]
+      delete copyFavs[index];
+      copyFavs.count--;
     }
+
     this.setState(
       {favorites: copyFavs}, 
       () => localStorage.setItem('favorites', JSON.stringify(this.state.favorites))
