@@ -4,42 +4,35 @@ import Gallery from 'react-grid-gallery';
 
 import './styles/GifList.css';
 
-// TODO: fix sort
+// TODO: lazy load?
 
-const GifList = ({ data }) => {
-  let gifs = data.map(gif => {
-    let copy = {};
-    copy.src = gif.images.original.url;
-    copy.thumbnail = gif.images.fixed_width.url;
-    copy.thumbnailWidth = parseInt(gif.images.fixed_width.width);
-    copy.thumbnailHeight = parseInt(gif.images.fixed_width.height);
-    copy.caption = gif.title;
-    copy.id = gif.id;
-    copy.user = gif.user;
-    copy.upload = gif.import_datetime
-    return copy;
-  });
+// needs to happen after gallery is rendered
+// const images = document.querySelectorAll('.tile-viewport img');
+// images.forEach(image => image.classList.add('hi'))
 
+const GifList = (props) => {
   return (
     <main>
       <div className="main-header">
         <h3>Trending GIFs</h3>
-        <div className="sort-wrap">
-          <form>
-          <select name="sort">
-            <option value="Sort">Sort</option>
-            <option value="Upload Date">Upload Date</option> 
-          </select>
-          </form>
-        </div>
+          <div className="sort">
+            <select className="sort-select" onChange={props.onSort}>
+              <option value="" defaultValue="disabled selected">Sort by</option>
+              <option value="Upload Date: Old">Upload Date: Old</option> 
+              <option value="Upload Date: New">Upload Date: Newest</option> 
+            </select>
+          </div>
       </div>
-      <Gallery images={gifs}/>
+      <Gallery 
+        images={props.gifs}
+      />
     </main>
   );
 }
 
 GifList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  gifs: PropTypes.arrayOf(PropTypes.object),
+  onSort: PropTypes.func
 };
 
 export default GifList;
