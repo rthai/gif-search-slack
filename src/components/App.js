@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {
+  BrowserRouter,
+  Route,
+} from 'react-router-dom';
+
 
 import './styles/App.css';
 import Nav from './Nav';
 import DropNav from './DropNav';
 import GifList from './GifList';
+import Favorites from './Favorites';
+import Upload from './Upload';
+import Home from './Home';
 
 
-// TODO: make an error page
+// TODO: make an error page, fix favorites, upload, pass extra param to sort so it doesnt keep sorting trending
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       gifs: [],
-      favorites: JSON.parse(localStorage.getItem('favorites')) || {count: 0},
+      favorites: JSON.parse(localStorage.getItem('favorites')) || [],
+      favCount: 0,
     }
 
     this.onSort = this.onSort.bind(this);
@@ -42,16 +51,17 @@ class App extends Component {
           copy.upload = gif.import_datetime;
           return copy;
         });
-        this.setState({ gifs });
+        this.setState({ gifs , favCount: this.state.favorites.length});
       })
       .catch(err => console.error(err));
   }
 
   onSelectImage(index) {
     console.log(index);
-    var copyFavs = {...this.state.favorites};
+    var copyFavs = this.state.favorites.slice();
     var images = this.state.gifs.slice();
     var img = images[index];
+    let count = this.state.favCount;
     
     if (img.hasOwnProperty("isSelected")) {
       img.isSelected = !img.isSelected;
@@ -60,20 +70,24 @@ class App extends Component {
     }
 
     if (img.isSelected) {
-      copyFavs[index] = img;
-      copyFavs.count++;
+      copyFavs.push(img);
+      count++;
     } else {
-      delete copyFavs[index];
-      copyFavs.count--;
+      // delete by checking gif id
+      copyFavs = copyFavs.filter(gif => gif.id !== img.id);
+      count--;
     }
 
+    console.log(copyFavs, count)
+
+
     this.setState(
-      {favorites: copyFavs}, 
+      {favorites: copyFavs, favCount: count}, 
       () => localStorage.setItem('favorites', JSON.stringify(this.state.favorites))
     );
   }
 
-  onSort(e) {
+  onSort = (e) => {
     const data = this.state.gifs.slice();
     let input = e.target.value;
     let sortType;
@@ -118,11 +132,16 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Nav faves={this.state.favorites.count}/>
-        <DropNav faves={this.state.favorites.count}/>
-        <GifList gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Nav faves={this.state.favCount}/>
+          <DropNav faves={this.state.favorites.count}/>
+          {/* <GifList gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/> */}
+          <Route exact path="/" render={() => <Home gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
+          <Route path="/favorites" render={() => <Favorites gifs={this.state.favorites} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
+          <Route path="/upload" render={() => <Upload/>}/>
+        </div>
+      </BrowserRouter>
     );
   }
 }
