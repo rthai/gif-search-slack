@@ -25,6 +25,7 @@ const GifList = (props) => {
       </div>
       <Gallery 
         images={props.gifs}
+        onSelectImage={props.onSelectImage}
       />
     </main>
   );
@@ -32,7 +33,8 @@ const GifList = (props) => {
 
 GifList.propTypes = {
   gifs: PropTypes.arrayOf(PropTypes.object),
-  onSort: PropTypes.func
+  onSort: PropTypes.func,
+  onSelectImage: PropTypes.func,
 };
 
 export default GifList;
