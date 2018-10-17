@@ -18,7 +18,7 @@ class App extends Component {
     }
 
     this.onSort = this.onSort.bind(this);
-    // this.onSelectImage = this.onSelectImage.bind(this);
+    this.onSelectImage = this.onSelectImage.bind(this);
   }
 
   componentDidMount() {
@@ -47,27 +47,28 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
-  // onSelectImage(index) {
-  //   var copyFavs = {...this.state.favorites};
-  //   var images = this.state.gifs.slice();
-  //   var img = images[index];
+  onSelectImage(index) {
+    console.log(index);
+    var copyFavs = {...this.state.favorites};
+    var images = this.state.gifs.slice();
+    var img = images[index];
     
-  //   if (img.hasOwnProperty("isSelected")) {
-  //     img.isSelected = !img.isSelected;
-  //   } else {
-  //     img.isSelected = true;
-  //   }
+    if (img.hasOwnProperty("isSelected")) {
+      img.isSelected = !img.isSelected;
+    } else {
+      img.isSelected = true;
+    }
 
-  //   if (img.isSelected) {
-  //     copyFavs[index] = img
-  //   } else {
-  //     delete copyFavs[index]
-  //   }
-  //   this.setState(
-  //     {favorites: copyFavs}, 
-  //     () => localStorage.setItem('favorites', JSON.stringify(this.state.favorites))
-  //   );
-  // }
+    if (img.isSelected) {
+      copyFavs[index] = img
+    } else {
+      delete copyFavs[index]
+    }
+    this.setState(
+      {favorites: copyFavs}, 
+      () => localStorage.setItem('favorites', JSON.stringify(this.state.favorites))
+    );
+  }
 
   onSort(e) {
     const data = this.state.gifs.slice();
@@ -117,7 +118,7 @@ class App extends Component {
       <div className="App">
         <Nav />
         <DropNav />
-        <GifList gifs={this.state.gifs} onSort={this.onSort}/>
+        <GifList gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/>
       </div>
     );
   }
