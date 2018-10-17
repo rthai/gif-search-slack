@@ -74,9 +74,9 @@ class App extends Component {
     let input = e.target.value;
     let sortType;
 
-    if (input === "Upload Date: Old") {
+    if (input === "Date Added (oldest)") {
       sortType = this.sortAscending;
-    } else if (input === "Upload Date: New") {
+    } else if (input === "Date Added (newest)") {
       sortType = this.sortDescending;
     }
     

@@ -18,8 +18,8 @@ const GifList = (props) => {
           <div className="sort">
             <select className="sort-select" onChange={props.onSort}>
               <option value="" defaultValue="disabled selected">Sort by</option>
-              <option value="Upload Date: Old">Upload Date: Old</option> 
-              <option value="Upload Date: New">Upload Date: Newest</option> 
+              <option value="Date Added (oldest)">Date Added (oldest)</option> 
+              <option value="Date Added (newest)">Date Added (newest)</option> 
             </select>
           </div>
       </div>
