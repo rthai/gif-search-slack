@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './styles/Nav.css';
 import Search from './Search';
 
-const Nav = () => (
+const Nav = (props) => (
   <nav>
     <ul className="nav-links">
       <li className="hamburger">
@@ -14,7 +16,7 @@ const Nav = () => (
         <h1><a>GIF Search</a></h1>
       </li>
       <li className="link"><a>Home</a></li>
-      <li className="link"><a>Favorites</a></li>
+      <li className="link"><a>Favorites{props.faves > 0 ? ` (${props.faves})` : ``}</a></li>
       <li className="link"><a>Upload</a></li>
       <li>
         <div className="search-container">
@@ -24,5 +26,9 @@ const Nav = () => (
     </ul>
   </nav>
 );
+
+Nav.propTypes = {
+  faves: PropTypes.number
+};
 
 export default Nav;

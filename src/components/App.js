@@ -119,8 +119,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav />
-        <DropNav />
+        <Nav faves={this.state.favorites.count}/>
+        <DropNav faves={this.state.favorites.count}/>
         <GifList gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/>
       </div>
     );
