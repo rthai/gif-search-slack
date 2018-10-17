@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Gallery from 'react-grid-gallery';
 
 import './styles/GifList.css';
+import GifListHeader from './GifListHeader';
 
 // TODO: lazy load?
 
@@ -13,7 +14,7 @@ import './styles/GifList.css';
 const GifList = (props) => {
   return (
     <main>
-      <div className="main-header">
+      {/* <div className="main-header">
         <h3>Trending GIFs</h3>
           <div className="sort">
             <select className="sort-select" onChange={props.onSort}>
@@ -22,7 +23,8 @@ const GifList = (props) => {
               <option value="Date Added (newest)">Date Added (newest)</option> 
             </select>
           </div>
-      </div>
+      </div> */}
+      <GifListHeader title={props.title} onSort={props.onSort}/>
       <Gallery 
         images={props.gifs}
         onSelectImage={props.onSelectImage}
@@ -32,6 +34,7 @@ const GifList = (props) => {
 }
 
 GifList.propTypes = {
+  title: PropTypes.string,
   gifs: PropTypes.arrayOf(PropTypes.object),
   onSort: PropTypes.func,
   onSelectImage: PropTypes.func,
