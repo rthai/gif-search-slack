@@ -87,8 +87,21 @@ class App extends Component {
     );
   }
 
-  onSort = (e) => {
-    const data = this.state.gifs.slice();
+  onSort = (title, e) => {
+    // check if in favorites or home page
+    console.log(title, e.target.value)
+    let data, 
+        stateKey,
+        newState = {};
+
+    if (title === "Trending GIFs") {
+      data = this.state.gifs.slice();
+      stateKey = 'gifs';
+    } else if (title === "Favorites") {
+      data = this.state.favorites.slice();
+      stateKey = 'favorites';
+    }
+
     let input = e.target.value;
     let sortType;
 
@@ -99,7 +112,10 @@ class App extends Component {
     }
     
     let sorted = data.sort(sortType);
-    this.setState({gifs: sorted});
+    newState[stateKey] = sorted;
+    console.log(stateKey, newState, sorted)
+
+    this.setState(newState);
   }
 
   // old -> new
