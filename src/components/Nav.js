@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import './styles/Nav.css';
 import Search from './Search';
+
+// TODO: click hamburger show dropnav;
 
 const Nav = (props) => (
   <nav>
@@ -13,11 +16,11 @@ const Nav = (props) => (
         </button>
       </li>
       <li className="logo">
-        <h1><a>GIF Search</a></h1>
+        <h1><NavLink exact to="/">GIF Search</NavLink></h1>
       </li>
-      <li className="link"><a>Home</a></li>
-      <li className="link"><a>Favorites{props.faves > 0 ? ` (${props.faves})` : ``}</a></li>
-      <li className="link"><a>Upload</a></li>
+      <li className="link"><NavLink exact to="/">Home</NavLink></li>
+      <li className="link fav"><NavLink to="/favorites">Favorites{props.faves > 0 ? ` (${props.faves})` : ``}</NavLink></li>
+      <li className="link"><NavLink to="/upload">Upload</NavLink></li>
       <li>
         <div className="search-container">
           <Search/>
