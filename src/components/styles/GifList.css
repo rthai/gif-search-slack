@@ -26,4 +26,12 @@ main {
   /* border: 1px solid red; */
 }
 
+.sort {
+  width: 150px;
+}
+.sort select {
+  font-size: 12px;
+
+}
+
 
