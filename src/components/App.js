@@ -9,10 +9,9 @@ import {
 import './styles/App.css';
 import Nav from './Nav';
 import DropNav from './DropNav';
-import GifList from './GifList';
+import Home from './Home';
 import Favorites from './Favorites';
 import Upload from './Upload';
-import Home from './Home';
 
 
 // TODO: make an error page, upload
@@ -26,6 +25,7 @@ class App extends Component {
       favCount: 0,
     }
 
+    this.onSearch = this.onSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectImage = this.onSelectImage.bind(this);
   }
@@ -36,24 +36,33 @@ class App extends Component {
     axios.get(endpoint)
       .then(response => {
         let data = response.data.data;
-
-        let gifs = data.map(gif => {
-          let copy = {};
-          copy.src = gif.images.original.url;
-          copy.thumbnail = gif.images.fixed_width.url;
-          // copy.data_src = gif.images.fixed_width.url;
-          // copy.thumbnail = '';
-          copy.thumbnailWidth = parseInt(gif.images.fixed_width.width);
-          copy.thumbnailHeight = parseInt(gif.images.fixed_width.height);
-          copy.caption = gif.title;
-          copy.id = gif.id;
-          copy.user = gif.user;
-          copy.upload = gif.import_datetime;
-          return copy;
-        });
+        let gifs = this.structureData(data);
         this.setState({ gifs , favCount: this.state.favorites.length});
       })
       .catch(err => console.error(err));
+  }
+
+  structureData(data) {
+    return data.map(gif => {
+      let copy = {};
+      copy.src = gif.images.original.url;
+      copy.thumbnail = gif.images.fixed_width.url;
+      // copy.data_src = gif.images.fixed_width.url;
+      // copy.thumbnail = '';
+      copy.thumbnailWidth = parseInt(gif.images.fixed_width.width);
+      copy.thumbnailHeight = parseInt(gif.images.fixed_width.height);
+      copy.caption = gif.title;
+      copy.id = gif.id;
+      copy.user = gif.user;
+      copy.upload = gif.import_datetime;
+      return copy;
+    });
+  }
+
+  onSearch(searchValue) {
+    console.log('onsearch', searchValue);
+
+    const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchValue}&limit=25&offset=0&rating=G&lang=en`;
   }
 
   onSelectImage(title, index) {
@@ -163,9 +172,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Nav faves={this.state.favCount}/>
-          <DropNav faves={this.state.favorites.count}/>
-          {/* <GifList gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/> */}
+          <Nav faves={this.state.favCount} onSearch={this.onSearch}/>
+          <DropNav faves={this.state.favorites.count} onSearch={this.onSearch}/>
           <Route exact path="/" render={() => <Home gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
           <Route path="/favorites" render={() => <Favorites gifs={this.state.favorites} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
           <Route path="/upload" render={() => <Upload/>}/>
