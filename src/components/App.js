@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   BrowserRouter,
   Route,
+  Switch
 } from 'react-router-dom';
 
 
@@ -10,9 +11,10 @@ import './styles/App.css';
 import Nav from './Nav';
 import DropNav from './DropNav';
 import Home from './Home';
+import Search from './Search';
 import Favorites from './Favorites';
 import Upload from './Upload';
-
+import NotFound from './NotFound';
 
 // TODO: make an error page, upload
 
@@ -25,7 +27,7 @@ class App extends Component {
       favCount: 0,
     }
 
-    this.onSearch = this.onSearch.bind(this);
+    // this.onSearch = this.onSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectImage = this.onSelectImage.bind(this);
   }
@@ -59,11 +61,18 @@ class App extends Component {
     });
   }
 
-  onSearch(searchValue) {
-    console.log('onsearch', searchValue);
-
-    const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchValue}&limit=25&offset=0&rating=G&lang=en`;
-  }
+  // onSearch(searchValue) {
+  //   console.log('onsearch', searchValue);
+  //   const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchValue}&limit=25&offset=0&rating=G&lang=en`;
+    
+  //   axios.get(endpoint)
+  //     .then(response => {
+  //       let data = response.data.data;
+  //       let gifs = this.structureData(data);
+  //       // this.setState({ gifs });
+  //     })
+  //     .catch(err => console.error(err));
+  // }
 
   onSelectImage(title, index) {
     // console.log(index);
@@ -172,11 +181,15 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Nav faves={this.state.favCount} onSearch={this.onSearch}/>
+          <Nav faves={this.state.favCount} />
           <DropNav faves={this.state.favorites.count} onSearch={this.onSearch}/>
-          <Route exact path="/" render={() => <Home gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
-          <Route path="/favorites" render={() => <Favorites gifs={this.state.favorites} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
-          <Route path="/upload" render={() => <Upload/>}/>
+          <Switch>
+            <Route exact path="/" render={() => <Home gifs={this.state.gifs} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
+            <Route path="/favorites" render={() => <Favorites gifs={this.state.favorites} onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
+            <Route path="/upload" render={() => <Upload/>}/>
+            <Route path="/search" render={() => <Search onSort={this.onSort} onSelectImage={this.onSelectImage}/>}/>
+            <Route  component={NotFound}/>
+          </Switch>
         </div>
       </BrowserRouter>
     );
