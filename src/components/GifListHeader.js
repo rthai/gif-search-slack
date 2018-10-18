@@ -24,7 +24,6 @@ const GifListHeader = (props) => {
 GifListHeader.propTypes = {
   title: PropTypes.string,
   onSort: PropTypes.func,
-  pages: PropTypes.object
 };
 
 export default GifListHeader;
