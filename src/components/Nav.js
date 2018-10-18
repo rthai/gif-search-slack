@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 
 import './styles/Nav.css';
-import Search from './Search';
+import SearchBar from './SearchBar';
 
 // TODO: click hamburger show dropnav;
 
@@ -23,7 +23,9 @@ const Nav = (props) => (
       <li className="link"><NavLink to="/upload">Upload</NavLink></li>
       <li>
         <div className="search-container">
-          <Search onSearch={props.onSearch}/>
+          {/* <SearchBar onSearch={props.onSearch}/> */}
+          {/* <SearchBar /> */}
+          <Route component={SearchBar}/>
         </div>
       </li>
     </ul>
@@ -32,7 +34,7 @@ const Nav = (props) => (
 
 Nav.propTypes = {
   faves: PropTypes.number,
-  onSearch: PropTypes.func
+  // onSearch: PropTypes.func
 };
 
 export default Nav;
