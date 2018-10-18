@@ -56,12 +56,21 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
-  onSelectImage(index) {
-    console.log(index);
+  onSelectImage(title, index) {
+    // console.log(index);
     var copyFavs = this.state.favorites.slice();
-    var images = this.state.gifs.slice();
-    var img = images[index];
+    let images;
     let count = this.state.favCount;
+
+    // console.log(title)
+
+    if (title === "Trending GIFs") {
+      images = this.state.gifs.slice();
+    } else if (title === "Favorites") {
+      images = this.state.favorites.slice();
+    }
+
+    var img = images[index];
     
     if (img.hasOwnProperty("isSelected")) {
       img.isSelected = !img.isSelected;
@@ -70,6 +79,10 @@ class App extends Component {
     }
 
     if (img.isSelected) {
+      // dont push same img twice
+      if (copyFavs.find(gif => gif.id === img.id)) {
+        return;
+      } 
       copyFavs.push(img);
       count++;
     } else {
