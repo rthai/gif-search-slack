@@ -64,6 +64,10 @@ nav {
   color: #000;
 }
 
+.nav-links li.link a.active {
+  color: dodgerblue;
+}
+
 li.link {
   max-width: 100px;
 }
