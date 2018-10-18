@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Gallery from 'react-grid-gallery';
+import {sortAscending, sortDescending} from './lib/sorting.js';
 
 import './styles/GifList.css';
 import GifListHeader from './GifListHeader';
@@ -42,43 +43,14 @@ class GifList extends Component {
     }
     
     if (input === "Date Added (oldest)") {
-      sortType = this.sortAscending;
+      sortType = sortAscending;
     } else if (input === "Date Added (newest)") {
-      sortType = this.sortDescending;
+      sortType = sortDescending;
     } 
     
     let sorted = data.sort(sortType);
     this.setState({gifs: sorted, hasSorted: true});
   }
-
-  // old -> new
-  sortAscending(a, b) {
-    a = a.upload;
-    b = b.upload;
-
-    if (a > b) {
-      return 1;
-    } else if (a === b) {
-      return 0;
-    } else {
-      return -1;
-    }
-  }
-
-  // new -> old
-  sortDescending(a, b) {
-    a = a.upload;
-    b = b.upload;
-
-    if (a < b) {
-      return 1;
-    } else if (a === b) {
-      return 0;
-    } else {
-      return -1;
-    }
-  }
-
 
   render() {
     let gifs = this.state.hasSorted ? this.state.gifs : this.props.gifs;
