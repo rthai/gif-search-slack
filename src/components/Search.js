@@ -67,7 +67,6 @@ class Search extends Component {
 
 Search.propTypes = {
   location: PropTypes.object.isRequired,
-  onSelectImage: PropTypes.func.isRequired,
 };
 
 
