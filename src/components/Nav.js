@@ -23,7 +23,7 @@ const Nav = (props) => (
       <li className="link"><NavLink to="/upload">Upload</NavLink></li>
       <li>
         <div className="search-container">
-          <Search/>
+          <Search onSearch={props.onSearch}/>
         </div>
       </li>
     </ul>
@@ -31,7 +31,8 @@ const Nav = (props) => (
 );
 
 Nav.propTypes = {
-  faves: PropTypes.number
+  faves: PropTypes.number,
+  onSearch: PropTypes.func
 };
 
 export default Nav;
