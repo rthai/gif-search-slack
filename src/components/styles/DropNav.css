@@ -13,14 +13,17 @@
   transition: top 0.5s;
 }
 
-.drop-menu.active {
-  top: 63px;
-}
-
 .drop-menu li.link a:hover {
   color: dodgerblue;
 }
 
-/* style active links */
-
 /* hide drop menu no matter wat when resized */
+@media (max-width: 470px) {
+  .drop-menu {
+    visibility: hidden;
+  }
+  .drop-menu.active {
+    visibility: visible;
+    top: 63px;
+  }
+}
