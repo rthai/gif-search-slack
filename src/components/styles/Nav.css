@@ -76,8 +76,11 @@ li.link.fav {
   .nav-links li.hamburger {
     min-width: 40px;
     max-width: 40px;
+    /* cursor: pointer; */
+
   }
   .nav-links li.link {
+    min-width: 0;
     max-width: 0;
     overflow: hidden;
   }
