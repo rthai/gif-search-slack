@@ -7,6 +7,7 @@ import './styles/GifList.css';
 import GifListHeader from './GifListHeader';
 
 // TODO: lazy load?
+// FIXME: favorites saved to localstorage but on refresh checkmark is not saved
 
 // needs to happen after gallery is rendered
 // const images = document.querySelectorAll('.tile-viewport img');
@@ -27,7 +28,6 @@ class GifList extends Component {
     if (newProps !== prevProps.gifs) {
       this.setState({gifs: [], hasSorted: false})
     }
-
   }
 
   onSort = (e) => {
@@ -52,6 +52,44 @@ class GifList extends Component {
     this.setState({gifs: sorted, hasSorted: true});
   }
 
+  onSelectImage(index) {
+    let images, favorites;
+    
+    if (this.state.hasSorted) {
+      images = this.state.gifs;
+    } else {
+      images = this.props.gifs;
+    }
+    
+    const img = images[index];
+
+    if (JSON.parse(localStorage.getItem('favorites')) === null) {
+      localStorage.setItem('favorites', JSON.stringify([])); 
+    } 
+
+    favorites = [...JSON.parse(localStorage.getItem('favorites'))]; 
+    
+    if (img.hasOwnProperty("isSelected")) {
+      img.isSelected = !img.isSelected;
+    } else {
+      img.isSelected = true;
+    }
+
+    if (img.isSelected) {
+      // dont push same img twice
+      if (favorites.find(gif => gif.id === img.id)) {
+        return;
+      } 
+      favorites.push(img);
+    } else {
+      // delete by checking gif id
+      favorites= favorites.filter(gif => gif.id !== img.id);
+    }
+
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    this.props.updateFavorites(favorites)
+  }
+
   render() {
     let gifs = this.state.hasSorted ? this.state.gifs : this.props.gifs;
     let html;
@@ -66,7 +104,7 @@ class GifList extends Component {
       html = 
         <Gallery 
           images={gifs}
-          onSelectImage={(i) => this.props.onSelectImage(this.props.title, i)}
+          onSelectImage={(i) => this.onSelectImage(i)}
         />
     }
 
@@ -82,7 +120,7 @@ class GifList extends Component {
 GifList.propTypes = {
   title: PropTypes.string,
   gifs: PropTypes.arrayOf(PropTypes.object),
-  onSelectImage: PropTypes.func,
+  updateFavorites: PropTypes.func,
 };
 
 export default GifList;

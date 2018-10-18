@@ -21,72 +21,29 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      favorites: JSON.parse(localStorage.getItem('favorites')) || [],
-      favCount: JSON.parse(localStorage.getItem('favorites')).length || 0,
+      favorites: 
+        JSON.parse(localStorage.getItem('favorites')) || [],
     }
-
-    this.onSelectImage = this.onSelectImage.bind(this);
   }
 
-  onSelectImage(title, index) {
-    // console.log(index);
-    var copyFavs = this.state.favorites.slice();
-    let images;
-    let count = this.state.favCount;
-
-    // console.log(title)
-
-    if (title === "Trending GIFs") {
-      images = this.state.gifs.slice();
-    } else if (title === "Favorites") {
-      images = this.state.favorites.slice();
-    }
-
-    var img = images[index];
-    
-    if (img.hasOwnProperty("isSelected")) {
-      img.isSelected = !img.isSelected;
-    } else {
-      img.isSelected = true;
-    }
-
-    if (img.isSelected) {
-      // dont push same img twice
-      if (copyFavs.find(gif => gif.id === img.id)) {
-        return;
-      } 
-      copyFavs.push(img);
-      count++;
-    } else {
-      // delete by checking gif id
-      copyFavs = copyFavs.filter(gif => gif.id !== img.id);
-      count--;
-    }
-
-    console.log(copyFavs, count)
-
-
-    this.setState(
-      {favorites: copyFavs, favCount: count}, 
-      () => localStorage.setItem('favorites', JSON.stringify(this.state.favorites))
-    );
+  updateFavorites = (newFavorites) => {
+    this.setState({favorites: newFavorites });
   }
-
- 
+  
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <Nav faves={this.state.favCount} />
-          <DropNav faves={this.state.favorites.count} onSearch={this.onSearch}/>
+          <Nav faves={this.state.favorites.length}/>
+          <DropNav faves={this.state.favorites.length} />
           <Switch>
             <Route exact path="/" 
-              render={() => <Home onSelectImage={this.onSelectImage} structureData={this.structureData}/>}/>
+              render={() => <Home updateFavorites={this.updateFavorites}/>}/>
             <Route path="/favorites" 
-              render={() => <Favorites gifs={this.state.favorites} onSelectImage={this.onSelectImage}/>}/>
+              render={() => <Favorites updateFavorites={this.updateFavorites} gifs={this.state.favorites}/>}/>
             <Route path="/upload" render={() => <Upload/>}/>
             <Route path="/search" 
-              render={(props) => <Search structureData={this.structureData} location={props.location} onSelectImage={this.onSelectImage}/>}/>
+              render={(props) => <Search location={props.location} updateFavorites={this.updateFavorites}/>}/>
             <Route  component={NotFound}/>
           </Switch>
         </div>
