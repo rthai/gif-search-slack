@@ -37,6 +37,7 @@ nav {
 .nav-links button.menu {
   background: #fff;
   border: 0;
+  cursor: pointer;
 }
 
 .nav-links li.logo {
