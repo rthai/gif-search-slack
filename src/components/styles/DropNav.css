@@ -13,7 +13,14 @@
   transition: top 0.5s;
 }
 
-/* TODO: do something with hover */
-.drop-menu li.link:hover {
-  background-color: mistyrose;
+.drop-menu.active {
+  top: 63px;
 }
+
+.drop-menu li.link a:hover {
+  color: dodgerblue;
+}
+
+/* style active links */
+
+/* hide drop menu no matter wat when resized */
