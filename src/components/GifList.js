@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Gallery from 'react-grid-gallery';
 
@@ -11,35 +11,105 @@ import GifListHeader from './GifListHeader';
 // const images = document.querySelectorAll('.tile-viewport img');
 // images.forEach(image => image.classList.add('hi'))
 
-const GifList = (props) => {
-  let html;
-
-  if (props.gifs.length === 0) {
-    if (props.title === 'Trending GIFs') {
-      html = <h4>Loading...</h4>
-    } else {
-      html = <h4>No GIFs to load...</h4>
+class GifList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      gifs: [],
+      hasSorted: false,
     }
-  } else {
-    html = 
-    <Gallery 
-      images={props.gifs}
-      onSelectImage={(i) => props.onSelectImage(props.title, i)}
-    />
   }
 
-  return (
-    <main>
-      <GifListHeader title={props.title} onSort={props.onSort}/>
-      {html}
-    </main>
-  );
+  componentDidUpdate(prevProps) {
+    const newProps = this.props.gifs;
+
+    if (newProps !== prevProps.gifs) {
+      this.setState({gifs: [], hasSorted: false})
+    }
+
+  }
+
+  onSort = (e) => {
+    console.log(e.target.value)
+    let data = this.props.gifs.slice();
+
+    let input = e.target.value;
+    let sortType;
+
+    if (input === '') {
+      e.preventDefault();
+      return;
+    }
+    
+    if (input === "Date Added (oldest)") {
+      sortType = this.sortAscending;
+    } else if (input === "Date Added (newest)") {
+      sortType = this.sortDescending;
+    } 
+    
+    let sorted = data.sort(sortType);
+    this.setState({gifs: sorted, hasSorted: true});
+  }
+
+  // old -> new
+  sortAscending(a, b) {
+    a = a.upload;
+    b = b.upload;
+
+    if (a > b) {
+      return 1;
+    } else if (a === b) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
+
+  // new -> old
+  sortDescending(a, b) {
+    a = a.upload;
+    b = b.upload;
+
+    if (a < b) {
+      return 1;
+    } else if (a === b) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
+
+
+  render() {
+    let gifs = this.state.hasSorted ? this.state.gifs : this.props.gifs;
+    let html;
+
+    if (this.props.gifs.length === 0) {
+      if (this.props.title === 'Trending GIFs') {
+        html = <h4>Loading...</h4>
+      } else {
+        html = <h4>No GIFs found.</h4>
+      }
+    } else {
+      html = 
+        <Gallery 
+          images={gifs}
+          onSelectImage={(i) => this.props.onSelectImage(this.props.title, i)}
+        />
+    }
+
+    return (
+      <main>
+        <GifListHeader title={this.props.title} onSort={this.onSort} hasSorted={this.state.hasSorted} pages={this.props.pages}/>
+        {html}
+      </main>
+    );
+  }
 }
 
 GifList.propTypes = {
   title: PropTypes.string,
   gifs: PropTypes.arrayOf(PropTypes.object),
-  onSort: PropTypes.func,
   onSelectImage: PropTypes.func,
 };
 
