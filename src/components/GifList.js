@@ -12,23 +12,22 @@ import GifListHeader from './GifListHeader';
 // images.forEach(image => image.classList.add('hi'))
 
 const GifList = (props) => {
+  let html;
+
+  if (props.gifs.length === 0) {
+    html = <h4>No GIFs to load...</h4>
+  } else {
+    html = 
+    <Gallery 
+      images={props.gifs}
+      onSelectImage={(i) => props.onSelectImage(props.title, i)}
+    />
+  }
+
   return (
     <main>
-      {/* <div className="main-header">
-        <h3>Trending GIFs</h3>
-          <div className="sort">
-            <select className="sort-select" onChange={props.onSort}>
-              <option value="" defaultValue="disabled selected">Sort by</option>
-              <option value="Date Added (oldest)">Date Added (oldest)</option> 
-              <option value="Date Added (newest)">Date Added (newest)</option> 
-            </select>
-          </div>
-      </div> */}
       <GifListHeader title={props.title} onSort={props.onSort}/>
-      <Gallery 
-        images={props.gifs}
-        onSelectImage={props.onSelectImage}
-      />
+      {html}
     </main>
   );
 }
