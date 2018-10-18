@@ -1,59 +1,43 @@
 import React, { Component } from 'react';
-import './styles/Search.css';
+import GifList from './GifList';
+
+// TODO: search page QUERY #of gifs
 
 class Search extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      value: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.debounce = this.debounce.bind(this);
-  }
-  
-  debounce(func, wait = 20, immediate = true) {
-    var timeout;
-    return function() {
-      var context = this, args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
   }
 
-  handleChange(e) {
-    // e.preventDefault();
+  componentDidMount() {
 
-    this.setState({value: e.target.value});    
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    let input = this.state.value;
-    if (input === '') return;
-    this.props.onSearch(input);
-    e.target.reset();
-    this.setState({value: ''});    
-  }
-
+  // onSearch(searchValue) {
+  //   console.log('onsearch', searchValue);
+  //   const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchValue}&limit=25&offset=0&rating=G&lang=en`;
+    
+  //   axios.get(endpoint)
+  //     .then(response => {
+  //       let data = response.data.data;
+  //       let gifs = this.structureData(data);
+  //       // this.setState({ gifs });
+  //     })
+  //     .catch(err => console.error(err));
+  // }
 
   render() {
+    // let title = searchValue; 
     return (
-      <form className="search-form" onSubmit={this.debounce(this.handleSubmit)}>
-        <input type="text" placeholder="Search all the GIFs!" onChange={this.handleChange}/>
-        <button type="submit" className="search-btn">
-          <i className="material-icons icn-search">search</i>
-        </button>
-      </form>
-    )
+      <GifList title='Search' gifs={[]} onSort={this.props.onSort} onSelectImage={this.props.onSelectImage}/>
+      );
   }
+
+
+
+
+
+
 }
+
 
 export default Search;
