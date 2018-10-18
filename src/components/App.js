@@ -15,7 +15,7 @@ import Upload from './Upload';
 import Home from './Home';
 
 
-// TODO: make an error page, fix favorites, upload, pass extra param to sort so it doesnt keep sorting trending
+// TODO: make an error page, upload
 
 class App extends Component {
   constructor() {
