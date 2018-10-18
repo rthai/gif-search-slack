@@ -6,6 +6,7 @@ import './styles/Nav.css';
 import SearchBar from './SearchBar';
 
 // TODO: click hamburger show dropnav;
+// FIXME: active link styling doesnt work
 
 const Nav = (props) => (
   <nav>
