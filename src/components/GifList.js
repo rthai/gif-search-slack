@@ -15,7 +15,11 @@ const GifList = (props) => {
   let html;
 
   if (props.gifs.length === 0) {
-    html = <h4>No GIFs to load...</h4>
+    if (props.title === 'Trending GIFs') {
+      html = <h4>Loading...</h4>
+    } else {
+      html = <h4>No GIFs to load...</h4>
+    }
   } else {
     html = 
     <Gallery 
