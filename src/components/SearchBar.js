@@ -37,9 +37,8 @@ class SearchBar extends Component {
     let input = this.state.value;
     if (input === '') return;
 
-    let path = `search?q=${input}`
+    let path = `search?q=${input}`;
 
-    // this.props.onSearch(input);
     e.target.reset();
     this.setState({value: ''});  
     this.props.history.push(path);  
