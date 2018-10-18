@@ -74,6 +74,7 @@ li.link {
 
 li.link.fav {
   min-width: 100px;
+  text-align: center;
 }
 
 @media (max-width: 470px) { 
@@ -101,6 +102,7 @@ li.link.fav {
   li.link {
     max-width: 90px;
   }
+
   .nav-links li.logo h1 {
     font-size: 28px;
   }
