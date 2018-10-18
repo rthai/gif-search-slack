@@ -60,7 +60,7 @@ class Search extends Component {
 
   render() {
     return (
-      <GifList title={this.state.q} gifs={this.state.gifs} onSelectImage={this.props.onSelectImage} pages={this.state.pagination}/>
+      <GifList title={this.state.q} gifs={this.state.gifs} updateFavorites={this.props.updateFavorites} pages={this.state.pagination}/>
       );
   }
 }

@@ -29,7 +29,7 @@ class Home extends Component {
 
   render() {
     return (
-      <GifList title='Trending GIFs' gifs={this.state.gifs} onSelectImage={this.props.onSelectImage}/>
+      <GifList title='Trending GIFs' gifs={this.state.gifs} updateFavorites={this.props.updateFavorites}/>
     );
   }
 }
