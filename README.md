@@ -2,7 +2,7 @@
 
 A single page web application that displays trending GIFs on Giphy.
 
-Demo
+[Demo](http://ec2-34-209-235-160.us-west-2.compute.amazonaws.com/)
 
 
 ![](https://thumbs.gfycat.com/WhisperedAmbitiousAmurminnow-size_restricted.gif)
@@ -11,6 +11,9 @@ Responsive
 
 
 ![](https://thumbs.gfycat.com/ImpressiveWeepyBarbet-size_restricted.gif)
+
+
+
 ## Features
 
 * Responsive web design for desktop, tablet, and mobile devices with flexbox and media queries.
@@ -58,6 +61,12 @@ REACT_APP_GIPHY_API_KEY=yoursecretcodehere
 ```
 npm test
 ```
+
+## Deployment
+
+Quick and dirty deployment with Docker and AWS EC2 
+
+[GIF Search](http://ec2-34-209-235-160.us-west-2.compute.amazonaws.com/)
 
 ## Built with
 
