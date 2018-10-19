@@ -7,10 +7,7 @@ const Favorites = (props) => (
 );
 
 Favorites.propTypes = {
-  title: PropTypes.string,
-  gifs: PropTypes.arrayOf(PropTypes.object),
-  onSort: PropTypes.func,
-  onSelectImage: PropTypes.func,
-}
+  gifs: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default Favorites;

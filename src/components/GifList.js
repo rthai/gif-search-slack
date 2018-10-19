@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Gallery from 'react-grid-gallery';
-import {sortAscending, sortDescending} from './lib/sorting.js';
+import { 
+  sortAscending, 
+  sortDescending
+} from './lib/sorting.js';
 
 import './styles/GifList.css';
 import GifListHeader from './GifListHeader';
 
 // TODO: lazy load?
-// FIXME: favorites saved to localstorage but on refresh checkmark is not saved
-
-// needs to happen after gallery is rendered
-// const images = document.querySelectorAll('.tile-viewport img');
-// images.forEach(image => image.classList.add('hi'))
+// FIXME: tweek? favorites saved to localstorage but on refresh checkmark is not saved
 
 class GifList extends Component {
   constructor(props) {
@@ -26,12 +25,14 @@ class GifList extends Component {
     const newProps = this.props.gifs;
 
     if (newProps !== prevProps.gifs) {
-      this.setState({gifs: [], hasSorted: false})
+      this.setState({
+        gifs: [], 
+        hasSorted: false
+      });
     }
   }
 
   onSort = (e) => {
-    console.log(e.target.value)
     let data = this.props.gifs.slice();
 
     let input = e.target.value;
@@ -49,7 +50,10 @@ class GifList extends Component {
     } 
     
     let sorted = data.sort(sortType);
-    this.setState({gifs: sorted, hasSorted: true});
+    this.setState({
+      gifs: sorted, 
+      hasSorted: true
+    });
   }
 
   onSelectImage(index) {
@@ -77,9 +81,7 @@ class GifList extends Component {
 
     if (img.isSelected) {
       // dont push same img twice
-      if (favorites.find(gif => gif.id === img.id)) {
-        return;
-      } 
+      if (favorites.find(gif => gif.id === img.id)) return;
       favorites.push(img);
     } else {
       // delete by checking gif id
@@ -87,7 +89,7 @@ class GifList extends Component {
     }
 
     localStorage.setItem('favorites', JSON.stringify(favorites));
-    this.props.updateFavorites(favorites)
+    this.props.updateFavorites(favorites);
   }
 
   render() {
@@ -118,9 +120,9 @@ class GifList extends Component {
 }
 
 GifList.propTypes = {
-  title: PropTypes.string,
-  gifs: PropTypes.arrayOf(PropTypes.object),
-  updateFavorites: PropTypes.func,
+  title: PropTypes.string.isRequired,
+  gifs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateFavorites: PropTypes.func.isRequired,
 };
 
 export default GifList;

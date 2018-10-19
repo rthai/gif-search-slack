@@ -5,14 +5,14 @@ import GifList from './GifList';
 import structureData from './lib/structureData.js';
 
 
-// TODO: search page QUERY #of gifs
+// TODO: add total #of gifs
 
 class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
       gifs: [],
-      q: 'Search', 
+      q: '', 
       pagination: '',
     }
   }
@@ -40,9 +40,7 @@ class Search extends Component {
     this.getGifs(q);
   }
   
-
   getGifs = (searchValue) => {
-    console.log('getGifs', searchValue);
     const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchValue}&limit=25&offset=0&rating=G&lang=en`;
     
     axios.get(endpoint)
@@ -60,14 +58,19 @@ class Search extends Component {
 
   render() {
     return (
-      <GifList title={this.state.q} gifs={this.state.gifs} updateFavorites={this.props.updateFavorites} pages={this.state.pagination}/>
-      );
+      <GifList 
+        title={`"${this.state.q}"`} 
+        gifs={this.state.gifs} 
+        updateFavorites={this.props.updateFavorites} 
+        pages={this.state.pagination}
+      />
+    );
   }
 }
 
 Search.propTypes = {
   location: PropTypes.object.isRequired,
+  updateFavorites: PropTypes.func.isRequired,
 };
-
 
 export default Search;

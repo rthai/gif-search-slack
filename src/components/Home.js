@@ -1,11 +1,11 @@
 import React , { Component }from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+
 import GifList from './GifList';
 import structureData from './lib/structureData.js';
 
-
-// FIXME: console error when gif is clicked
+// FIXME: console error for gallery lightbox when gif is clicked
 
 class Home extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  onSelectImage: PropTypes.func,
+  updateFavorites: PropTypes.func.isRequired,
 }
 
 export default Home;
