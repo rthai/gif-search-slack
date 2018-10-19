@@ -14,6 +14,7 @@
   box-shadow: 0 0 5px rgba(0,0,0,.12);
 }
 
+.drop-menu li.link a.active,
 .drop-menu li.link a:hover {
   color: dodgerblue;
 }
