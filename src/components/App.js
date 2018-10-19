@@ -5,7 +5,7 @@ import {
   Switch
 } from 'react-router-dom';
 
-
+import GlobalStyle from '../globalStyle';
 import './styles/App.css';
 import Nav from './Nav';
 import DropNav from './DropNav';
@@ -34,6 +34,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
+          <GlobalStyle/>
           <Nav faves={this.state.favorites.length}/>
           <DropNav faves={this.state.favorites.length} />
           <Switch>
