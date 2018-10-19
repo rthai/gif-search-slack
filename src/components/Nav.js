@@ -49,6 +49,7 @@ const LogoLi = styled.li`
   flex:1 2;
   text-align: center;
   max-width: 200px;
+  height: 63px;
   transition: all 0.3s;
   h1 {
     min-width: 158px;
@@ -59,6 +60,9 @@ const LogoLi = styled.li`
     text-transform: uppercase;
     @media (max-width: 970px) {
       font-size: 28px;
+    }
+    @media (max-width: 875px) {
+      font-size: 24px;
     }
   }
   a {
@@ -95,6 +99,7 @@ const LinkLi = styled.li`
 
 const SearchLi = styled.li`
   flex: 2;
+  max-width: 550px;
 `;
 
 class Nav extends Component {
