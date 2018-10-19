@@ -54,8 +54,9 @@ nav {
   text-transform: uppercase;
 }
 
+.nav-links li.link a,
 .nav-links li.logo a {
-  text-shadow: 2px 1px rgba(0,0,0,.12);
+  text-shadow: 1px 1px rgba(0,0,0,.12);
 }
 
 .nav-links li.link a:hover,
