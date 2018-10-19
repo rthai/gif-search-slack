@@ -5,6 +5,8 @@
   align-content: center;
   align-items: center;
   min-height: 300px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background: #fff;
   border-radius: 2px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, .12);
@@ -45,6 +47,14 @@
 
 .upload-url button.btn-preview:hover {
   background: #32CD32;
+}
+
+.preview {
+  padding: 5px;
+}
+
+.preview img {
+  width:50%;
 }
 
 @media (max-width: 660px) {
