@@ -11,13 +11,14 @@
   background: #fff;
   text-align: left;
   transition: top 0.5s;
+  box-shadow: 0 0 5px rgba(0,0,0,.12);
 }
 
 .drop-menu li.link a:hover {
   color: dodgerblue;
 }
 
-/* hide drop menu no matter wat when resized */
+/* hide drop menu if active when max-width increases */
 @media (max-width: 470px) {
   .drop-menu {
     visibility: hidden;
