@@ -27,8 +27,14 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      favorites: 
-        JSON.parse(localStorage.getItem('favorites')) || [],
+      favorites: [],
+    }
+  }
+
+  componentDidMount() {
+    const local = JSON.parse(localStorage.getItem('favorites'));
+    if (local) {
+      this.setState({favorites: local});
     }
   }
 
