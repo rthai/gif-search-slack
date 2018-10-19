@@ -21,6 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ```
 Node v8.11.1 or newer
+npm 5.6.0 or newwer
 ```
 
 ### Installation Overview
