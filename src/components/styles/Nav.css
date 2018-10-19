@@ -8,6 +8,7 @@ nav {
   font-size: 16px;
   display: flex;
   justify-content: center;
+  box-shadow: 0 0 5px rgba(0,0,0,.12);
 }
 
 .nav-links {
@@ -15,7 +16,6 @@ nav {
   margin: 0;
   display: flex;
   justify-content: space-around;
-  /* align-content: center; */
   align-items: center;
 }
 
@@ -54,19 +54,17 @@ nav {
   text-transform: uppercase;
 }
 
-.nav-links li.link a:hover, .nav-links li.link a:active {
-  /* box-sizing: border-box; */
-  /* border-bottom: 2px solid dodgerblue; */
-  /* background: mistyrose; */
-  color: dodgerblue;
+.nav-links li.logo a {
+  text-shadow: 2px 1px rgba(0,0,0,.12);
+}
+
+.nav-links li.link a:hover,
+li.link a.active {
+  color: #1e90ff;
 }
 
 .nav-links li.logo a:visited {
   color: #000;
-}
-
-.nav-links li.link a.active {
-  color: dodgerblue;
 }
 
 li.link {
@@ -82,8 +80,6 @@ li.link.fav {
   .nav-links li.hamburger {
     min-width: 40px;
     max-width: 40px;
-    /* cursor: pointer; */
-
   }
   .nav-links li.link {
     min-width: 0;
