@@ -2,7 +2,8 @@
 
 A single web application that displays trending GIFs on Giphy.
 
-[INSERT VIDEO/GIF OF PROJECT HERE]
+![](https://thumbs.gfycat.com/WhisperedAmbitiousAmurminnow-size_restricted.gif)
+
 
 ## Features
 
