@@ -43,8 +43,8 @@ class App extends Component {
               render={() => <Favorites updateFavorites={this.updateFavorites} gifs={this.state.favorites}/>}/>
             <Route path="/upload" render={() => <Upload/>}/>
             <Route path="/search" 
-              render={(props) => <Search location={props.location} updateFavorites={this.updateFavorites}/>}/>
-            <Route  component={NotFound}/>
+              render={props => <Search location={props.location} updateFavorites={this.updateFavorites}/>}/>
+            <Route component={ NotFound }/>
           </Switch>
         </div>
       </BrowserRouter>
