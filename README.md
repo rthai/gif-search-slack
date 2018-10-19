@@ -1,6 +1,6 @@
 # GIF Search
 
-A single web application that displays trending GIFs on Giphy.
+A single page web application that displays trending GIFs on Giphy.
 
 Demo
 
