@@ -69,7 +69,7 @@ npm test
 ## Future Improvements
 
 * State management is a bit messy. Refactor with redux.
-* Clean up CSS with [styled-components](https://www.styled-components.com/) or with css preprocessor.
+* Clean up CSS with [styled-components](https://www.styled-components.com/). (in progress)
 * Lazy loading to improve network performance: will alllow app to get higher quality GIFs instead of loading the lower quality preview GIFs
 * Pagination on scroll: when user scrolls to the bottom of the page, get more GIFs
 * Functional upload page: can include persistent storage or maybe redirect to Giphy upload
