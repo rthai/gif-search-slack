@@ -4,22 +4,18 @@ A single page web application that displays trending GIFs on Giphy.
 
 [Demo](http://ec2-34-209-235-160.us-west-2.compute.amazonaws.com/)
 
-
 ![](https://thumbs.gfycat.com/WhisperedAmbitiousAmurminnow-size_restricted.gif)
 
 Responsive
 
-
 ![](https://thumbs.gfycat.com/ImpressiveWeepyBarbet-size_restricted.gif)
-
-
 
 ## Features
 
 * Responsive web design for desktop, tablet, and mobile devices with flexbox and media queries.
 * Sort by ascending or descending upload dates.
 * GIFs are displayed in a grid gallery.
-* Select your favorite GIFs and see them in the 'Favorites' page. 
+* Select your favorite GIFs by hovering over a GIF and clicking the check mark. See them in the 'Favorites' page.
 * Upload a URL of a GIF and preview on 'Upload' page.
 * Search bar is powered by Giphy Search.
 
@@ -79,6 +75,7 @@ Quick and dirty deployment with Docker and AWS EC2
 
 * State management is a bit messy. Refactor with redux.
 * Clean up CSS with [styled-components](https://www.styled-components.com/). (in progress)
+* Refine gallery: customize react-grid-gallery
 * Lazy loading to improve network performance: will alllow app to get higher quality GIFs instead of loading the lower quality preview GIFs
 * Pagination on scroll: when user scrolls to the bottom of the page, get more GIFs
 * Functional upload page: can include persistent storage or maybe redirect to Giphy upload
