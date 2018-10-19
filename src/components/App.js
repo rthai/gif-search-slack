@@ -4,9 +4,9 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import styled from 'styled-components';
 
 import GlobalStyle from '../globalStyle';
-import './styles/App.css';
 import Nav from './Nav';
 import DropNav from './DropNav';
 import Home from './Home';
@@ -15,7 +15,13 @@ import Favorites from './Favorites';
 import Upload from './Upload';
 import NotFound from './NotFound';
 
-// TODO: upload, 
+// TODO: refine upload
+
+const AppWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+  padding-top: 95px;
+`;
 
 class App extends Component {
   constructor() {
@@ -33,7 +39,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="App">
+        <AppWrapper>
           <GlobalStyle/>
           <Nav faves={this.state.favorites.length}/>
           <DropNav faves={this.state.favorites.length} />
@@ -47,7 +53,7 @@ class App extends Component {
               render={props => <Search location={props.location} updateFavorites={this.updateFavorites}/>}/>
             <Route component={ NotFound }/>
           </Switch>
-        </div>
+        </AppWrapper>
       </BrowserRouter>
     );
   }
