@@ -12,6 +12,7 @@ import DropNav from './DropNav';
 import Home from './Home';
 import Search from './Search';
 import Favorites from './Favorites';
+import Shared from './Shared';
 import Upload from './Upload';
 import NotFound from './NotFound';
 
@@ -28,18 +29,30 @@ class App extends Component {
     super()
     this.state = {
       favorites: [],
+      shared: [],
     }
   }
 
   componentDidMount() {
-    const local = JSON.parse(localStorage.getItem('favorites'));
-    if (local) {
-      this.setState({favorites: local});
+    const localFav = JSON.parse(localStorage.getItem('favorites'));
+    const localShared = JSON.parse(localStorage.getItem('shared'));
+
+    if (localFav) {
+      this.setState({favorites: localFav});
     }
+
+    if (localShared) {
+      this.setState({shared: localShared});
+    }
+    
   }
 
   updateFavorites = (newFavorites) => {
-    this.setState({favorites: newFavorites });
+    this.setState({favorites: newFavorites});
+  }
+
+  updateShared = (newShared) => {
+    this.setState({shared: newShared});
   }
   
   render() {
@@ -47,16 +60,24 @@ class App extends Component {
       <BrowserRouter>
         <AppWrapper>
           <GlobalStyle/>
-          <Nav faves={this.state.favorites.length}/>
-          <DropNav faves={this.state.favorites.length} />
+          <Nav faves={this.state.favorites.length} shares={this.state.shared.length}/>
+          <DropNav faves={this.state.favorites.length} shares={this.state.shared.length}/>
           <Switch>
             <Route exact path="/" 
-              render={() => <Home updateFavorites={this.updateFavorites}/>}/>
+              render={() => <Home updateFavorites={this.updateFavorites} updateShared={this.updateShared}/>}/>
             <Route path="/favorites" 
-              render={() => <Favorites updateFavorites={this.updateFavorites} gifs={this.state.favorites}/>}/>
+              render={() => <Favorites updateFavorites={this.updateFavorites} 
+                                       gifs={this.state.favorites} 
+                                       updateShared={this.updateShared}/>}
+                            />
+            <Route path="/shared" 
+              render={() => <Shared gifs={this.state.shared}/>}/>
             <Route path="/upload" render={() => <Upload/>}/>
             <Route path="/search" 
-              render={props => <Search location={props.location} updateFavorites={this.updateFavorites}/>}/>
+              render={props => <Search location={props.location} 
+                                       updateFavorites={this.updateFavorites} 
+                                       updateShared={this.updateShared}/>}
+                                />
             <Route component={ NotFound }/>
           </Switch>
         </AppWrapper>
