@@ -151,7 +151,7 @@ class Nav extends Component {
             <NavLink to="/favorites">Favorites{this.props.faves > 0 ? ` (${this.props.faves})` : ``}</NavLink>
           </LinkLi>
           <LinkLi>
-            <NavLink to="/shared">Shared{this.props.faves > 0 ? ` (${this.props.shares})` : ``}</NavLink>
+            <NavLink to="/shared">Shared{this.props.shares > 0 ? ` (${this.props.shares})` : ``}</NavLink>
           </LinkLi>
           <LinkLi>
             <NavLink to="/upload">Upload</NavLink>
