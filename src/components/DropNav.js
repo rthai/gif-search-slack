@@ -12,6 +12,9 @@ const DropNav = (props) => (
     <li className="link fav">
       <NavLink to="/favorites">Favorites{props.faves > 0 ? ` (${props.faves})` : ``}</NavLink>
     </li>
+    <li className="link fav">
+      <NavLink to="/shared">Shared{props.shares > 0 ? ` (${props.shares})` : ``}</NavLink>
+    </li>
     <li className="link">
       <NavLink to="/upload">Upload</NavLink>
       </li>
@@ -20,6 +23,7 @@ const DropNav = (props) => (
 
 DropNav.propTypes = {
   faves: PropTypes.number.isRequired,
+  shares: PropTypes.number
 };
 
 export default DropNav;

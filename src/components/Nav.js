@@ -33,7 +33,7 @@ const Hamburger = styled.li`
   transition: all 0.5s;
   flex:1 2;
   text-align: center;
-  @media (max-width: 470px) { 
+  @media (max-width: 575px) { 
     min-width: 40px;
     max-width: 40px;
   }
@@ -58,7 +58,7 @@ const LogoLi = styled.li`
     font-weight: 600;
     font-size: 30px;
     text-transform: uppercase;
-    @media (max-width: 970px) {
+    @media (max-width: 1005px) {
       font-size: 28px;
     }
     @media (max-width: 875px) {
@@ -71,7 +71,7 @@ const LogoLi = styled.li`
   a:visited {
     color: #000;
   }
-  @media (max-width: 640px) { 
+  @media (max-width: 735px) { 
     max-width: 0;
     overflow: hidden;
   }
@@ -90,7 +90,7 @@ const LinkLi = styled.li`
   a:hover, a.active {
     color: #1e90ff;
   }
-  @media (max-width: 470px) { 
+  @media (max-width: 575px) { 
     min-width: 0;
     max-width: 0;
     overflow: hidden;
@@ -151,6 +151,9 @@ class Nav extends Component {
             <NavLink to="/favorites">Favorites{this.props.faves > 0 ? ` (${this.props.faves})` : ``}</NavLink>
           </LinkLi>
           <LinkLi>
+            <NavLink to="/shared">Shared{this.props.faves > 0 ? ` (${this.props.shares})` : ``}</NavLink>
+          </LinkLi>
+          <LinkLi>
             <NavLink to="/upload">Upload</NavLink>
           </LinkLi>
           <SearchLi>
@@ -166,6 +169,7 @@ class Nav extends Component {
 
 Nav.propTypes = {
   faves: PropTypes.number,
+  shares: PropTypes.number,
 };
 
 export default Nav;
