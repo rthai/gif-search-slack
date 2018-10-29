@@ -20,7 +20,7 @@
 }
 
 /* hide drop menu if active when max-width increases */
-@media (max-width: 470px) {
+@media (max-width: 575px) {
   .drop-menu {
     visibility: hidden;
   }
