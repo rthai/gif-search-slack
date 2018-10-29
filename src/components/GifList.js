@@ -13,7 +13,8 @@ import './styles/GifList.css';
 import GifListHeader from './GifListHeader';
 
 // TODO: lazy load?
-// FIXME: tweek? favorites saved to localstorage but on refresh checkmark is not saved
+// TODO: do more to error handle (than just console.error) share to slack if no 200 response. lazy alert for now. change button txt? 
+// FIXME: tweek/double check? favorites saved to localstorage but on refresh checkmark is not saved?
 
 class GifList extends Component {
   constructor(props) {
@@ -128,21 +129,27 @@ class GifList extends Component {
   }
 
   postToSlack = (img) => {
-    const endpoint = `https://hooks.slack.com/services/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`;
+    const endpoint = `https://hooks.slack.com/services/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`;
     const randomMsg = messages[Math.floor(Math.random() * messages.length)];
     const options = {
       "text": `${randomMsg}`,
       "attachments": [
-          {
-            "title": `${img.caption}`,
-            "image_url": `${img.src}`
-          }
+        {
+          "title": `${img.caption}`,
+          "image_url": `${img.src}`
+        }
       ]
     };
 
     axios.post(endpoint, JSON.stringify(options))
-      .then(response => console.log(response.status, response.data))
-      .catch(err => console.error(err));     
+      .then(response => {
+        console.log(response.status, response.data);
+        alert('Shared!');
+      })
+      .catch(err => {
+        console.error(err);
+        alert('An error has occurred');
+      });     
   } 
 
   render() {
@@ -201,7 +208,7 @@ GifList.propTypes = {
   title: PropTypes.string.isRequired,
   gifs: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateFavorites: PropTypes.func.isRequired,
-  updateShared: PropTypes.func.isRequired,
+  updateShared: PropTypes.func,
 };
 
 export default GifList;
