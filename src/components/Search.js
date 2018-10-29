@@ -62,6 +62,7 @@ class Search extends Component {
         title={`"${this.state.q}"`} 
         gifs={this.state.gifs} 
         updateFavorites={this.props.updateFavorites} 
+        updateShared={this.props.updateShared}
         pages={this.state.pagination}
       />
     );
