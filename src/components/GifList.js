@@ -167,6 +167,8 @@ class GifList extends Component {
     if (this.props.gifs.length === 0) {
       if (this.props.title === 'Trending GIFs') {
         html = <h4>Loading...</h4>
+      } else if (this.props.title.match(/^"/)) {
+        html = <h4>Searching...</h4>
       } else {
         html = <h4>No GIFs found.</h4>
       }
