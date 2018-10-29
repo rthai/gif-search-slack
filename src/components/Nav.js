@@ -78,12 +78,11 @@ const LogoLi = styled.li`
 `;
 
 const LinkLi = styled.li`
-  flex:1 2;
+  flex: 1 2;
   text-align: center;
   min-width: 100px;
   max-width: 100px;
-
-  text-align: center;
+ 
   a {
     text-shadow: 1px 1px rgba(0,0,0,.12);
   }
@@ -129,7 +128,6 @@ class Nav extends Component {
     });
   }
   
-  //TODO: CHECK hamburger button later
   render () {
     return (
       <NavWrapper>
