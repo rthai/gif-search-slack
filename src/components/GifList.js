@@ -6,6 +6,7 @@ import {
   sortAscending, 
   sortDescending
 } from './lib/sorting.js';
+import messages from './lib/slackMsgs.js';
 import slackLogo from './SlackLogo.svg';
 
 import './styles/GifList.css';
@@ -129,8 +130,9 @@ class GifList extends Component {
 
   postToSlack = (img) => {
     const endpoint = `https://hooks.slack.com/services/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`;
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
     const options = {
-      "text": ":tada: A GIF a day keeps the blues away :tada:",
+      "text": `${randomMsg}`,
       "attachments": [
           {
             "title": `${img.caption}`,
