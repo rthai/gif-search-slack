@@ -71,7 +71,7 @@ class App extends Component {
                                        updateShared={this.updateShared}/>}
                             />
             <Route path="/shared" 
-              render={() => <Shared gifs={this.state.shared}/>}/>
+              render={() => <Shared gifs={this.state.shared} updateFavorites={this.updateFavorites}/>}/>
             <Route path="/upload" render={() => <Upload/>}/>
             <Route path="/search" 
               render={props => <Search location={props.location} 
