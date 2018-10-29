@@ -124,7 +124,7 @@ class GifList extends Component {
     
 
     localStorage.setItem('shared', JSON.stringify(shared));
-    // this.props.updateShared(shared);
+    this.props.updateShared(shared);
   }
 
   postToSlack = (img) => {
@@ -198,6 +198,7 @@ GifList.propTypes = {
   title: PropTypes.string.isRequired,
   gifs: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateFavorites: PropTypes.func.isRequired,
+  updateShared: PropTypes.func,
 };
 
 export default GifList;

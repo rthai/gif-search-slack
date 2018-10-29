@@ -29,13 +29,14 @@ class Home extends Component {
 
   render() {
     return (
-      <GifList title='Trending GIFs' gifs={this.state.gifs} updateFavorites={this.props.updateFavorites}/>
+      <GifList title='Trending GIFs' gifs={this.state.gifs} updateFavorites={this.props.updateFavorites} updateShared={this.props.updateShared}/>
     );
   }
 }
 
 Home.propTypes = {
   updateFavorites: PropTypes.func.isRequired,
+  updateShared: PropTypes.func.isRequired,
 }
 
 export default Home;
