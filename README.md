@@ -10,6 +10,10 @@ Responsive
 
 ![](https://thumbs.gfycat.com/ImpressiveWeepyBarbet-size_restricted.gif)
 
+Share to Slack
+
+![](https://thumbs.gfycat.com/FaintSophisticatedBull-size_restricted.gif)
+
 ## Features
 
 * Responsive web design for desktop, tablet, and mobile devices with flexbox and media queries.
