@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Gallery from 'react-grid-gallery';
+import axios from 'axios';
 import { 
   sortAscending, 
   sortDescending
 } from './lib/sorting.js';
+import slackLogo from './SlackLogo.svg';
 
 import './styles/GifList.css';
 import GifListHeader from './GifListHeader';
@@ -18,6 +20,7 @@ class GifList extends Component {
     this.state = {
       gifs: [],
       hasSorted: false,
+      currentGif: 0,
     }
   }
 
@@ -56,7 +59,7 @@ class GifList extends Component {
     });
   }
 
-  onSelectImage(index) {
+  onSelectImage = (index) => {
     let images, favorites;
     
     if (this.state.hasSorted) {
@@ -92,7 +95,72 @@ class GifList extends Component {
     this.props.updateFavorites(favorites);
   }
 
+  onCurrentImageChange = (index) => {
+    this.setState({ currentGif: index });
+}
+
+  shareToSlack = () =>  {
+    let images;
+    
+    if (this.state.hasSorted) {
+      images = this.state.gifs;
+    } else {
+      images = this.props.gifs;
+    }
+    
+    const img = images[this.state.currentGif];
+
+    if (JSON.parse(localStorage.getItem('shared')) === null) {
+      localStorage.setItem('shared', JSON.stringify([])); 
+    } 
+
+    let shared = [...JSON.parse(localStorage.getItem('shared'))]; 
+
+    this.postToSlack(img)
+
+    // dont push same img twice
+    if (shared.find(gif => gif.id === img.id)) return;
+    shared.push(img);
+    
+
+    localStorage.setItem('shared', JSON.stringify(shared));
+    // this.props.updateShared(shared);
+  }
+
+  postToSlack = (img) => {
+    const endpoint = `https://hooks.slack.com/services/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`;
+    const options = {
+      "text": ":tada: A GIF a day keeps the blues away :tada:",
+      "attachments": [
+          {
+            "title": `${img.caption}`,
+            "image_url": `${img.src}`
+          }
+      ]
+    };
+
+    axios.post(endpoint, JSON.stringify(options))
+      .then(response => console.log(response.status, response.data))
+      .catch(err => console.error(err));
+          
+  } 
+
   render() {
+    const buttonStyles = {
+      marginTop: '5px',
+      marginBottom: '5px',
+      background: '#1bbc8e',
+      borderRadius: '5px',
+      border: '0',
+      color: 'white',
+      fontWeight: 600,
+    };
+
+    const buttonImgStyle = {
+      width: '30px',
+      verticalAlign: 'middle'
+    };
+
     let gifs = this.state.hasSorted ? this.state.gifs : this.props.gifs;
     let html;
 
@@ -106,7 +174,14 @@ class GifList extends Component {
       html = 
         <Gallery 
           images={gifs}
-          onSelectImage={(i) => this.onSelectImage(i)}
+          onSelectImage={this.onSelectImage}
+          backdropClosesModal={true}
+          currentImageWillChange={this.onCurrentImageChange}
+          customControls={[
+            <button key="slack-share" onClick={this.shareToSlack} style={buttonStyles}>
+              <img src={slackLogo} alt="white slack logo" style={buttonImgStyle} />Share to Slack
+            </button>
+        ]}
         />
     }
 
