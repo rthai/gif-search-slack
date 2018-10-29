@@ -1,8 +1,8 @@
 # GIF Search
 
-A single page web application that displays trending GIFs on Giphy.
+A single page web application that displays trending GIFs on Giphy. Now, with Slack sharing.
 
-[Demo](http://ec2-34-209-235-160.us-west-2.compute.amazonaws.com/)
+Demo
 
 ![](https://thumbs.gfycat.com/WhisperedAmbitiousAmurminnow-size_restricted.gif)
 
@@ -61,9 +61,8 @@ npm test
 
 ## Deployment
 
-Quick and dirty deployment with Docker and AWS EC2 
+Docker files included
 
-[GIF Search](http://ec2-34-209-235-160.us-west-2.compute.amazonaws.com/)
 
 ## Built with
 
