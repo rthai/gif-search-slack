@@ -61,7 +61,7 @@ class GifList extends Component {
   }
 
   onSelectImage = (index) => {
-    let images, favorites;
+    let images;
     
     if (this.state.hasSorted) {
       images = this.state.gifs;
@@ -75,7 +75,7 @@ class GifList extends Component {
       localStorage.setItem('favorites', JSON.stringify([])); 
     } 
 
-    favorites = [...JSON.parse(localStorage.getItem('favorites'))]; 
+    let favorites = [...JSON.parse(localStorage.getItem('favorites'))]; 
     
     if (img.hasOwnProperty("isSelected")) {
       img.isSelected = !img.isSelected;
@@ -98,7 +98,7 @@ class GifList extends Component {
 
   onCurrentImageChange = (index) => {
     this.setState({ currentGif: index });
-}
+  }
 
   shareToSlack = () =>  {
     let images;
@@ -117,12 +117,11 @@ class GifList extends Component {
 
     let shared = [...JSON.parse(localStorage.getItem('shared'))]; 
 
-    this.postToSlack(img)
+    this.postToSlack(img);
 
     // dont push same img twice
     if (shared.find(gif => gif.id === img.id)) return;
     shared.push(img);
-    
 
     localStorage.setItem('shared', JSON.stringify(shared));
     this.props.updateShared(shared);
@@ -143,8 +142,7 @@ class GifList extends Component {
 
     axios.post(endpoint, JSON.stringify(options))
       .then(response => console.log(response.status, response.data))
-      .catch(err => console.error(err));
-          
+      .catch(err => console.error(err));     
   } 
 
   render() {
@@ -160,6 +158,7 @@ class GifList extends Component {
 
     const buttonImgStyle = {
       width: '30px',
+      marginLeft: '-5px',
       verticalAlign: 'middle'
     };
 
@@ -202,7 +201,7 @@ GifList.propTypes = {
   title: PropTypes.string.isRequired,
   gifs: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateFavorites: PropTypes.func.isRequired,
-  updateShared: PropTypes.func,
+  updateShared: PropTypes.func.isRequired,
 };
 
 export default GifList;
