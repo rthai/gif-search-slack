@@ -4,46 +4,43 @@ import axios from 'axios';
 
 import GifList from './GifList';
 import structureData from './lib/structureData.js';
+import loadMoreGifs from './lib/loadMoreGifs.js';
 
-// FIXME: console error for gallery lightbox when gif is clicked
-
+// FIXME: console error? for gallery lightbox when gif is clicked
+// TODO: cancel calls when unmounted
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
       gifs: [],
-      offset: 0,
+      pagination: '',
     }
   }
 
   componentDidMount() {
-    const endpoint = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&limit=25&rating=G`;
+    this.fetchGifs();
+    window.addEventListener('scroll', (e) => {
+      const offset = this.state.pagination.count + this.state.pagination.offset;
 
-    this.fetchGifs(endpoint);
-    window.addEventListener('scroll', this.loadMoreGifs);
+      loadMoreGifs(e, offset, this.fetchGifs);
+    });
   }
 
-  fetchGifs = (endpoint) => {
+  fetchGifs = (offset) => {
+    const endpoint = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&limit=25&rating=G&offset=${offset}`;
+
+    let copy = this.state.gifs.slice();
     axios.get(endpoint)
     .then(response => {
       let res = response.data;
-      console.log(res);
       let gifs = structureData(res.data);
-      this.setState({ gifs });
+      copy.push(...gifs);
+      this.setState({ 
+        gifs: copy,
+        pagination: res.pagination
+      });
     })
     .catch(err => console.error(err));
-  }
-
-  loadMoreGifs = (e) => {    
-    let offset = this.state.offset + 25;
-    const endpoint = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&limit=25&rating=G&offset=${offset}`;
-    let scrollPosition = window.scrollY + window.innerHeight;
-    let end = e.target.documentElement.offsetHeight;
-
-    if (scrollPosition === end) {
-      console.log('end')
-      this.fetchGifs(endpoint)
-    }
   }
 
   render() {
