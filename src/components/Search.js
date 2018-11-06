@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import GifList from './GifList';
 import structureData from './lib/structureData.js';
+import loadMoreGifs from './lib/loadMoreGifs.js';
 
-
-// TODO: add total #of gifs
-
+// TODO: cancel calls when component unmounted
 class Search extends Component {
   constructor(props) {
     super(props)
@@ -19,6 +18,14 @@ class Search extends Component {
 
   componentDidMount() {
     this.handleSearch();
+
+    window.addEventListener('scroll', (e) => {
+      const offset = this.state.pagination.count + this.state.pagination.offset;
+
+      loadMoreGifs(e, offset, () => {
+        this.getGifs(this.state.q, offset);
+      });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -27,6 +34,10 @@ class Search extends Component {
     if (newProps !== prevProps.location.search) {
       this.handleSearch();
     }
+  }
+
+  componentWillUnmount() {
+
   }
 
   handleSearch = () => {
@@ -40,15 +51,18 @@ class Search extends Component {
     this.getGifs(q);
   }
   
-  getGifs = (searchValue) => {
-    const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchValue}&limit=25&offset=0&rating=G&lang=en`;
-    
+  getGifs = (searchValue, offset = 0) => {
+    const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchValue}&limit=25&offset=${offset}&rating=G&lang=en`;
+
+    let copy = this.state.gifs.slice();
+
     axios.get(endpoint)
       .then(response => {
         let res = response.data;
         let gifs = structureData(res.data);
+        copy.push(...gifs);
         this.setState({ 
-          gifs, 
+          gifs: copy,
           q: searchValue,
           pagination: res.pagination
         });
