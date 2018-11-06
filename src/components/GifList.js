@@ -13,7 +13,6 @@ import './styles/GifList.css';
 import GifListHeader from './GifListHeader';
 
 // TODO: lazy load?
-// TODO: do more to error handle (than just console.error) share to slack if no 200 response. lazy alert for now. change button txt? 
 // FIXME: tweek/double check? favorites saved to localstorage but on refresh checkmark is not saved?
 
 class GifList extends Component {
@@ -129,7 +128,8 @@ class GifList extends Component {
   }
 
   postToSlack = (img) => {
-    const endpoint = `https://hooks.slack.com/services/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`;
+    // const endpoint = `https://hooks.slack.com/services/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`;
+    const endpoint = `https://hooks.slack.com/services/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`;
     const randomMsg = messages[Math.floor(Math.random() * messages.length)];
     const options = {
       "text": `${randomMsg}`,
@@ -144,13 +144,48 @@ class GifList extends Component {
     axios.post(endpoint, JSON.stringify(options))
       .then(response => {
         console.log(response.status, response.data);
-        alert('Shared!');
+        this.showAlert('success');
       })
       .catch(err => {
         console.error(err);
-        alert('An error has occurred');
+        this.showAlert();
       });     
   } 
+
+  showAlert = (type) => {
+    const alertMsg = document.createElement('div');
+    let style =  `
+      position: absolute;
+      top: 5%;
+      padding: 5px 10px 5px 10px;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: 600;
+      animation-name: slide;
+    `;
+
+    if (type === 'success') {
+      style += `
+        border: 2px solid #4B7543;
+        background: #E2EFDA;
+        color: #4B7543;
+      `;
+      alertMsg.innerText = 'Shared!';
+    } else {
+      style += `
+      border: 2px solid #E6CDCC;
+      background: #EFDFDE;
+      color: #9D4A46;
+    `;
+      alertMsg.innerText = 'Oh no! An error has occured';
+    }
+
+    alertMsg.style.cssText = style;
+    document.getElementById('lightboxBackdrop').appendChild(alertMsg);
+    setTimeout(() => {
+      alertMsg.remove();
+    }, 1000);
+  }
 
   render() {
     const buttonStyles = {
