@@ -20,7 +20,7 @@ Share to Slack
 * Sort by ascending or descending upload dates.
 * GIFs are displayed in a grid gallery.
 * Select your favorite GIFs by hovering over a GIF and clicking the check mark. See them in the 'Favorites' page.
-* Upload a URL of a GIF and preview on 'Upload' page.
+* Upload to Giphy
 * Search bar is powered by Giphy Search.
 * Share GIF to slack: Clicking a GIF brings up a lightbox with a 'Share to Slack' button that will post a message on the Slack workspace associated with the webhook
 
@@ -75,13 +75,13 @@ Docker files included
 * [react-grid-gallery](https://benhowell.github.io/react-grid-gallery/)
 
 ## Future Improvements
-
+In no particular order...
+* Expand upload to include files
 * State management is a bit messy. Refactor with redux.
 * Clean up CSS with [styled-components](https://www.styled-components.com/). (in progress)
 * Refine gallery: customize react-grid-gallery
 * Customize GIF message to post to Slack
 * Lazy loading to improve network performance: will alllow app to get higher quality GIFs instead of loading the lower quality preview GIFs
-* Pagination on scroll: when user scrolls to the bottom of the page, get more GIFs
-* Functional upload page: can include persistent storage or maybe redirect to Giphy upload
+* Pagination on scroll: when user scrolls to the bottom of the page, get more GIFs (in progress)
 * More testing
 * Prevent memory leak when component unmounted
