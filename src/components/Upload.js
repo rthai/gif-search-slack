@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-// TODO: validate url
 // TODO: factor out alert msg;
 
 const UploadWrapper = styled.div`
@@ -138,20 +137,13 @@ class Upload extends Component {
     let input = this.uploaded.value;
     if (input === '') return;
     this.setState({upload: input});
-
-    this.showAlert('success');
-
-
-    
   };
 
   handleUpload = (e) => {
     this.preventDefaults(e);
     const tags = this.tags.value;
     const link = this.state.upload;
-    if (link === '') return alert('Missing GIF Source');
     this.postToGiphy(link, tags);
-    console.log('upload')
   }
 
   postToGiphy = (link, tags) => {
@@ -217,7 +209,7 @@ class Upload extends Component {
           <UploadForm onSubmit={this.handleUpload}>
             <InputDiv>
               <Label>GIF Source <span>*</span></Label>
-              <Input type="text" placeholder="Insert GIF URL" required aria-label="insert gif url" ref={input => this.uploaded = input} onChange={this.handleLink}/>
+              <Input type="url" placeholder="Insert GIF URL" required aria-label="insert gif url" ref={input => this.uploaded = input} onChange={this.handleLink}/>
             </InputDiv>
             <InputDiv>
               <Label>Add Tags</Label>
