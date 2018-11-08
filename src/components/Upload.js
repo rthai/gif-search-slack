@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
+
+// TODO: msg if successful upload
 
 const UploadWrapper = styled.div`
   width: 90%;
@@ -7,6 +10,7 @@ const UploadWrapper = styled.div`
   margin: 30px auto;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
   align-content: center;
   align-items: center;
@@ -18,11 +22,19 @@ const UploadWrapper = styled.div`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, .12);
 `;
 
+const Contents = styled.div`
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: center;
+`;
+
 const UploadForm = styled.form`
   margin: 10px;
   max-width: 70%;
   height: 100%;
-  border: 2px solid #c1c1c1;
+  padding: 10px;
   border-radius: 5px;
   @media (max-width: 660px) {
     min-width: 280px;
@@ -32,40 +44,57 @@ const UploadForm = styled.form`
 
 const InputDiv = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: 100%;
-  min-width: 300px;
-  button {
-    flex: 1;
-    min-width: 85px;
-    height: 46px;
-    padding: 5px;
-    border: none;
-    border-left: 1px solid  #c1c1c1;
-    background: #228B22;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-  }
-  button:hover {
-    background: #32CD32;
-    cursor: pointer;
-  }
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
+const Label = styled.label`
 `;
 
 const Input = styled.input`
-  flex: 5;
+  min-width: 300px;
+  margin-left: 10px;
   padding: 4px 8px 4px 8px; 
+  outline: 0;
   border: none;
+  border-bottom: 2px solid #e4e4e4;
+  transition: border-color .4s;
+  font-size: 16px;
+  &:focus {
+    border-color: dodgerblue;
+  }
   @media (max-width: 660px) {
     width: 70%;
   }
 `;
 
+const UploadBtn = styled.button`
+  float: right;
+  margin-top: 5px;
+  padding: 4px 8px 4px 8px;
+  border-radius: 5px;
+  background: #228B22;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  &:hover {
+    background: #32CD32;
+    cursor: pointer;
+  }
+`;
+
 const PreviewWrapper = styled.div`
-  padding: 5px
+  margin: 10px;
+  padding: 5px;
+  width: 25%;
+  height: 100%;
+  border: 2px dashed black;
+  border-radius: 2px;
+  background: #e0e0e0;
   img {
-    width: 50%;
+    margin-top: 5px;
+    width: 75%;
+    object-fit: contain;
   }
 `
 
@@ -89,19 +118,42 @@ class Upload extends Component {
     this.setState({upload: input});
   };
 
+  handleUpload = (e) => {
+    this.preventDefaults(e);
+    const tags = this.tags.value;
+    const link = this.state.upload;
+    this.postToGiphy(link, tags);
+    console.log('upload')
+  }
+
+  postToGiphy = (link, tags) => {
+    const endpoint = `https://upload.giphy.com/v1/gifs?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&source_image_url=${link}&tags=${tags}`;
+    axios.post(endpoint)
+      .then(response => console.log(response.status))
+      .catch(err => console.error(err));
+  }
+
   render() {
     return (
       <UploadWrapper>
-        <h3>Upload a GIF</h3>
-        <UploadForm onSubmit={this.handleLink}>
-          <InputDiv>
-            <Input type="text" placeholder=" Insert GIF URL" aria-label="insert gif url" ref={ input => this.uploaded = input} />
-            <button type="submit" className="btn-preview">Add GIF</button>
-          </InputDiv>
-        </UploadForm>
-        <PreviewWrapper ref={input => this.previewGallery = input}>
-          <img src={this.state.upload} alt=""/>
-        </PreviewWrapper>
+        <h3>Upload a GIF to Giphy!</h3>
+        <Contents>
+          <PreviewWrapper ref={input => this.previewGallery = input}>
+            Upload Preview
+            <img src={this.state.upload} alt=""/>
+          </PreviewWrapper>
+          <UploadForm onSubmit={this.handleUpload}>
+            <InputDiv>
+              <Label>GIF Source</Label>
+              <Input type="text" placeholder="Insert GIF URL" aria-label="insert gif url" ref={input => this.uploaded = input} onChange={this.handleLink}/>
+            </InputDiv>
+            <InputDiv>
+              <Label>Add tags</Label>
+              <Input type="text" placeholder="cat, meow, cute" aria-label="insert tags" ref={input => this.tags = input}/>
+            </InputDiv>
+            <UploadBtn type="submit" className="btn-preview">Upload</UploadBtn>
+          </UploadForm>
+        </Contents>
       </UploadWrapper>
     );
   }
