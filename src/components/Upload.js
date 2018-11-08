@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-// TODO: msg if successful upload
+// TODO: validate url
+// TODO: factor out alert msg;
 
 const UploadWrapper = styled.div`
   width: 90%;
@@ -137,6 +138,11 @@ class Upload extends Component {
     let input = this.uploaded.value;
     if (input === '') return;
     this.setState({upload: input});
+
+    this.showAlert('success');
+
+
+    
   };
 
   handleUpload = (e) => {
@@ -151,8 +157,52 @@ class Upload extends Component {
   postToGiphy = (link, tags) => {
     const endpoint = `https://upload.giphy.com/v1/gifs?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&source_image_url=${link}&tags=${tags}`;
     axios.post(endpoint)
-      .then(response => console.log(response.status))
-      .catch(err => console.error(err));
+      .then(response => {
+        if (response.status === 200) {
+          this.showAlert('success');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        this.showAlert();
+      });
+  }
+
+  showAlert = (type) => {
+    const alertMsg = document.createElement('div');
+    let style =`
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      padding: 5px 10px 5px 10px;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: 600;
+      animation-name: slide;
+    `;
+
+    if (type === 'success') {
+      style += `
+        border: 2px solid #4B7543;
+        background: #E2EFDA;
+        color: #4B7543;
+      `;
+      alertMsg.innerText = 'Uploaded!';
+    } else {
+      style += `
+      border: 2px solid #E6CDCC;
+      background: #EFDFDE;
+      color: #9D4A46;
+    `;
+      alertMsg.innerText = 'Oh no! An error has occured';
+    }
+
+    alertMsg.style.cssText = style;
+    document.body.appendChild(alertMsg);
+    setTimeout(() => {
+      alertMsg.remove();
+    }, 1000);
   }
 
   render() {
