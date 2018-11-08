@@ -31,6 +31,8 @@ const Contents = styled.div`
 `;
 
 const UploadForm = styled.form`
+  display: flex; 
+  flex-direction: column;
   margin: 10px;
   max-width: 70%;
   height: 100%;
@@ -43,12 +45,26 @@ const UploadForm = styled.form`
 `;
 
 const InputDiv = styled.div`
+  flex: 2;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  @media (max-width: 450px) {
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
 `;
 
 const Label = styled.label`
+  min-width: 95px;
+  flex: 1;
+  span {
+    color: red;
+  }
+  @media (max-width: 450px) {
+    text-align: left;
+    margin-bottom: 10px;
+  }
 `;
 
 const Input = styled.input`
@@ -56,6 +72,7 @@ const Input = styled.input`
   margin-left: 10px;
   padding: 4px 8px 4px 8px; 
   outline: 0;
+  overflow: hidden;
   border: none;
   border-bottom: 2px solid #e4e4e4;
   transition: border-color .4s;
@@ -64,11 +81,13 @@ const Input = styled.input`
     border-color: dodgerblue;
   }
   @media (max-width: 660px) {
-    width: 70%;
+    min-width: 250px;
   }
 `;
 
 const UploadBtn = styled.button`
+  align-self: flex-end;
+  width: 100px;
   float: right;
   margin-top: 5px;
   padding: 4px 8px 4px 8px;
@@ -87,10 +106,12 @@ const PreviewWrapper = styled.div`
   margin: 10px;
   padding: 5px;
   width: 25%;
+  min-width: 150px;
   height: 100%;
   border: 2px dashed black;
   border-radius: 2px;
   background: #e0e0e0;
+  text-align: center;
   img {
     margin-top: 5px;
     width: 75%;
@@ -122,6 +143,7 @@ class Upload extends Component {
     this.preventDefaults(e);
     const tags = this.tags.value;
     const link = this.state.upload;
+    if (link === '') return alert('Missing GIF Source');
     this.postToGiphy(link, tags);
     console.log('upload')
   }
@@ -144,11 +166,11 @@ class Upload extends Component {
           </PreviewWrapper>
           <UploadForm onSubmit={this.handleUpload}>
             <InputDiv>
-              <Label>GIF Source</Label>
-              <Input type="text" placeholder="Insert GIF URL" aria-label="insert gif url" ref={input => this.uploaded = input} onChange={this.handleLink}/>
+              <Label>GIF Source <span>*</span></Label>
+              <Input type="text" placeholder="Insert GIF URL" required aria-label="insert gif url" ref={input => this.uploaded = input} onChange={this.handleLink}/>
             </InputDiv>
             <InputDiv>
-              <Label>Add tags</Label>
+              <Label>Add Tags</Label>
               <Input type="text" placeholder="cat, meow, cute" aria-label="insert tags" ref={input => this.tags = input}/>
             </InputDiv>
             <UploadBtn type="submit" className="btn-preview">Upload</UploadBtn>
